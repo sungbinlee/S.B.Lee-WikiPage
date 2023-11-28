@@ -1,0 +1,40 @@
+{% extends "board/base.html" %}
+
+{% block content %}
+    <div class="container-fluid my-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <!-- 게시글 정보 -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">게시글 제목</h5>
+                        <p class="card-text">게시글 본문 내용이 여기에 들어갑니다.</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        게시글 ID: #123 | 생성일: 2023-11-28 <!-- 실제 데이터로 대체되어야 합니다 -->
+                    </div>
+                </div>
+
+                <!-- 연관 게시물 추천 레이아웃 -->
+                <h5 class="mb-4">연관 게시물 추천</h5>
+                <div class="row">
+                    {% for post in related_posts %}
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">title</h6>
+                                    <p class="card-text">content</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="text-center">
+                    <a href="{% url 'board:post_list' %}" class="btn btn-primary">게시판 돌아가기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# TODO: related_posts 보여주기 #}
+{% endblock %}
