@@ -19,6 +19,7 @@ from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("board/", include("board.urls")),
 ]
 
 if settings.DEBUG:
