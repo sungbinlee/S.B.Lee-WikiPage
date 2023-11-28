@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # third app
     "debug_toolbar",
+    "bootstrap5",
     # apps
     "board",
 ]
