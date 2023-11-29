@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # third app
     "debug_toolbar",
     "bootstrap5",
+    "django_extensions",
     # apps
     "board",
 ]
