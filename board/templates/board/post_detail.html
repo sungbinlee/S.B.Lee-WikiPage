@@ -7,27 +7,35 @@
                 <!-- 게시글 정보 -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">게시글 제목</h5>
-                        <p class="card-text">게시글 본문 내용이 여기에 들어갑니다.</p>
+                        <h4 class="card-title">{{ post.title }}</h4>
+                        <p class="card-text">{{ post.content }}</p>
                     </div>
                     <div class="card-footer text-muted">
-                        게시글 ID: #123 | 생성일: 2023-11-28 <!-- 실제 데이터로 대체되어야 합니다 -->
+                        게시글 ID: {{ post.id }} | 생성일: {{ post.created_at }}
                     </div>
                 </div>
 
                 <!-- 연관 게시물 추천 레이아웃 -->
                 <h5 class="mb-4">연관 게시물 추천</h5>
                 <div class="row">
-                    {% for post in related_posts %}
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h6 class="card-title">title</h6>
-                                    <p class="card-text">content</p>
-                                </div>
+                    {#                    {% for post in related_posts %}#}
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6 class="card-title">title</h6>
+                                <p class="card-text">content</p>
                             </div>
                         </div>
-                    {% endfor %}
+                    </div>
+                    {#                    {% endfor %}#}
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6 class="card-title">title</h6>
+                                <p class="card-text">content</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="text-center">
                     <a href="{% url 'board:post_list' %}" class="btn btn-primary">게시판 돌아가기</a>

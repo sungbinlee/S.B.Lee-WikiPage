@@ -1,4 +1,6 @@
 {% extends "board/base.html" %}
+{% load bootstrap5 %}
+
 {% block content %}
     <table class="table table-hover">
         <thead>
@@ -10,28 +12,28 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td><a href="{% url 'board:post_detail' '1' %}">노년에게서 우리의 </a></td>
-            <td>
+        {% if post_list %}
+            {% for post in post_list %}
+                <tr>
+                    <td>{{ post.id }}</td>
+                    <td><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></td>
+                    <td>
                 <span class="d-inline-block text-truncate" style="max-width: 400px;">
-                    시인의 재판관중 생활능력이 심장의 아니더면 노년에게서 우리의 연임할 시인의 재판관중 생활능력이 심장의 아니더면 노년에게서 우리의 연임할
+                    {{ post.content }}
                 </span>
-            </td>
-            <td>2022.08.01</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td><a href="{% url 'board:post_detail' '1' %}">심장의 아니더면 노년에게서 </a></td>
-            <td>
-                <span class="d-inline-block text-truncate" style="max-width: 400px;">
-                    시인의 재판관중 생활능력이 심장의 아니더면 노년에게서 우리의 연임할 시인의 재판관중 생활능력이 심장의 아니더면 노년에게서 우리의 연임할
-                </span>
-            </td>
-            <td>2022.08.01</td>
-        </tr>
+                    </td>
+                    <td>{{ post.created_at }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No data available</td>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
-
+    {% if is_paginated %}
+        {% bootstrap_pagination page_obj size="small" justify_content="center" %}
+    {% endif %}
 {% endblock %}
 
