@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Post(models.Model):
@@ -9,6 +10,12 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("board:post_detail", args=[self.pk])
+
+    class Meta:
+        ordering = ['-id']
 
 
 class RelatedPost(models.Model):
