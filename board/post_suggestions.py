@@ -2,6 +2,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from board.models import Post
 import pandas as pd
+import re
 
 # 데이터베이스에서 모든 게시물을 가져와 DataFrame에 저장
 all_posts = Post.objects.order_by("id")
@@ -14,6 +15,9 @@ with open(file_path, 'r', encoding='utf-8') as f:
     file_content = f.read()
 
 stop_words = file_content.split('\n')
+
+# 불용어 제거(조사, 관사, 동사 etc.)
+all_contents["content"] = all_contents["content"].apply(lambda x: re.sub(r'시켰습니다|으로써|적이며|라고|으로|합니다|입니다|에서|하고|하는|적인|로|을|를|은|는|이|가|한|에|과|의|와|들|$', '', x))
 
 # TF-IDF 벡터화
 tfidf_vectorizer = TfidfVectorizer(stop_words=stop_words, max_df=0.6, min_df=2)  # 전체 문서 에서 60% 이상 나온 단어 무시
