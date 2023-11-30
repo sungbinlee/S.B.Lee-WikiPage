@@ -34,7 +34,7 @@
                     {% endfor %}
                 </div>
                 {#  TODO: 연관 게시물 페이지네이션 #}
-                {% if related_posts %}
+                {% if related_posts.paginator.num_page > 1 %}
                     {% bootstrap_pagination related_posts size="small" justify_content="center" %}
                 {% endif %}
                 <div class="text-center">
