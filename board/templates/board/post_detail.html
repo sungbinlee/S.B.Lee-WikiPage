@@ -16,27 +16,24 @@
                 </div>
 
                 <!-- 연관 게시물 추천 레이아웃 -->
-                <h5 class="mb-4">연관 게시물 추천</h5>
+                <h5 class="mb-4">연관 게시물 추천 ({{ related_posts|length }})</h5>
                 <div class="row">
-                    {#                    {% for post in related_posts %}#}
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h6 class="card-title">title</h6>
-                                <p class="card-text">content</p>
+                    {% for post in related_posts %}
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">
+                                        <a href="{{ post.post.get_absolute_url }}">{{ post.post.title }}</a>
+                                         (유사도: {{ post.similarity }}%)
+                                    </h6>
+                                    <p class="card-text text-truncate">{{ post.post.content }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {#                    {% endfor %}#}
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h6 class="card-title">title</h6>
-                                <p class="card-text">content</p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
+                <!-- TODO: 연관 게시물 페이지네이션 -->
+
                 <div class="text-center">
                     <a href="{% url 'board:post_list' %}" class="btn btn-primary">게시판 돌아가기</a>
                 </div>
