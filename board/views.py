@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from board.models import Post
 from board.post_suggestions import get_related_posts, indices
+from django.core.paginator import Paginator
 
 
 class PostListview(ListView):
@@ -30,7 +31,10 @@ class PostDetailView(DetailView):
         for item in response:
             post = related_posts.get(id=item['post'])
             related_posts_with_similarity.append({'post': post, 'similarity': round(item['similarity'] * 100, 2)})
-        context['related_posts'] = related_posts_with_similarity
+
+        paginator = Paginator(related_posts_with_similarity, 6)
+        page_number = self.request.GET.get('page')
+        context['related_posts'] = paginator.get_page(page_number)
         return context
 
 

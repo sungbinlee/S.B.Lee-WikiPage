@@ -1,4 +1,5 @@
 {% extends "board/base.html" %}
+{% load bootstrap5 %}
 
 {% block content %}
     <div class="container-fluid my-5">
@@ -15,31 +16,31 @@
                     </div>
                 </div>
 
-                <!-- 연관 게시물 추천 레이아웃 -->
-                <h5 class="mb-4">연관 게시물 추천 ({{ related_posts|length }})</h5>
+                {# TODO: related_posts 보여주기 #}
+                <h5 class="mb-4">연관 게시물 추천 ({{ related_posts.paginator.count }})</h5>
                 <div class="row">
-                    {% for post in related_posts %}
+                    {% for related_post in related_posts %}
                         <div class="col-md-6">
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <h6 class="card-title">
-                                        <a href="{{ post.post.get_absolute_url }}">{{ post.post.title }}</a>
-                                         (유사도: {{ post.similarity }}%)
+                                        <a href="{{ related_post.post.get_absolute_url }}">{{ related_post.post.title }}</a>
+                                        (유사도: {{ related_post.similarity }}%)
                                     </h6>
-                                    <p class="card-text text-truncate">{{ post.post.content }}</p>
+                                    <p class="card-text text-truncate">{{ related_post.post.content }}</p>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-                <!-- TODO: 연관 게시물 페이지네이션 -->
-
+                {#  TODO: 연관 게시물 페이지네이션 #}
+                {% if related_posts %}
+                    {% bootstrap_pagination related_posts size="small" justify_content="center" %}
+                {% endif %}
                 <div class="text-center">
                     <a href="{% url 'board:post_list' %}" class="btn btn-primary">게시판 돌아가기</a>
                 </div>
             </div>
         </div>
     </div>
-
-    {# TODO: related_posts 보여주기 #}
 {% endblock %}
