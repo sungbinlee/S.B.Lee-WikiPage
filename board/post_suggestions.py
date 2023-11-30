@@ -7,8 +7,16 @@ import pandas as pd
 all_posts = Post.objects.order_by("id")
 all_contents = pd.DataFrame(list(Post.objects.values().order_by("id")))
 
+# 불용어 리스트 가져오기 출처: https://ahnsun98.tistory.com/35#google_vignette
+file_path = "board/stopwords.txt"
+
+with open(file_path, 'r', encoding='utf-8') as f:
+    file_content = f.read()
+
+stop_words = file_content.split('\n')
+
 # TF-IDF 벡터화
-tfidf_vectorizer = TfidfVectorizer(max_df=0.6, min_df=2)  # 전체 문서 에서 60% 이상 나온 단어 무시
+tfidf_vectorizer = TfidfVectorizer(stop_words=stop_words, max_df=0.6, min_df=2)  # 전체 문서 에서 60% 이상 나온 단어 무시
 tfidf_matrix = tfidf_vectorizer.fit_transform(all_contents["content"])
 
 # 게시물 간 유사도 계산
