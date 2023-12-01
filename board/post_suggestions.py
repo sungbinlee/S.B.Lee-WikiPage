@@ -5,7 +5,6 @@ import pandas as pd
 import re
 
 # 데이터베이스에서 모든 게시물을 가져와 DataFrame에 저장
-all_posts = Post.objects.order_by("id")
 all_contents = pd.DataFrame(list(Post.objects.values().order_by("id")))
 
 # 불용어 리스트 가져오기 출처: https://ahnsun98.tistory.com/35#google_vignette
@@ -30,7 +29,7 @@ cosine_similarities = cosine_similarity(tfidf_matrix, tfidf_matrix)
 indices = pd.Series(all_contents.index, index=all_contents["id"]).drop_duplicates()
 
 
-def get_related_posts(post_id, cosine_similarities=cosine_similarities):
+def get_related_posts(post_id):
     similarity = list(enumerate(cosine_similarities[post_id]))
     similarity = sorted(similarity, key=lambda x: x[1], reverse=True)
     # 유사도가 0보다 큰 게시물들의 인덱스를 찾아서 관련 게시물로 반환
@@ -42,3 +41,17 @@ def get_related_posts(post_id, cosine_similarities=cosine_similarities):
         for post in similarity if post[1] > 0
     ]
     return related_posts[1:]
+
+
+def extract_word_associations(threshold=0.1):
+    associations = []
+    # TF-IDF 벡터화 객체로부터 단어들의 이름(피처 이름) 가져오기
+    feature_names = tfidf_vectorizer.get_feature_names_out()
+    rows, cols = cosine_similarities.shape
+    for i in range(rows):
+        for j in range(cols):
+            if i != j and cosine_similarities[i][j] >= threshold:  # 유사도가 threshold 이상인 연관성 추출
+                word_i = feature_names[i]
+                word_j = feature_names[j]
+                associations.append((word_i, word_j))
+    return associations
