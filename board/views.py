@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from board.models import Post
-from board.post_suggestions import get_related_posts, indices, extract_word_associations
+from board.utils import get_related_posts, indices, extract_word_associations
 from django.core.paginator import Paginator
 import networkx as nx
 import matplotlib.pyplot as plt
