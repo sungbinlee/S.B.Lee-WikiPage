@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from board.models import Post
-from board.utils import get_related_posts, indices, extract_word_associations
 from django.core.paginator import Paginator
+from board.utils import PostAnalyzer
 import networkx as nx
 import matplotlib.pyplot as plt
 from io import BytesIO
@@ -28,9 +28,10 @@ class PostDetailView(DetailView):
         return qs
 
     def get_context_data(self, **kwargs):
+        analyzer = PostAnalyzer()
         context = super().get_context_data(**kwargs)
         post_id = self.object.id
-        response = get_related_posts(indices.get(post_id))
+        response = analyzer.get_related_posts(post_id)
         related_posts_ids = [i["post"] for i in response]
         related_posts = Post.objects.filter(id__in=related_posts_ids)
 
@@ -49,7 +50,8 @@ post_detail = PostDetailView.as_view()
 
 
 def association_map_view(request):
-    association_data = extract_word_associations(threshold=0.1)
+    analyzer = PostAnalyzer()
+    association_data = analyzer.extract_word_associations()
 
     G = nx.Graph()
 
