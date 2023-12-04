@@ -3,4 +3,4 @@
 
 ![ezgif-3-ac46f0253e](https://github.com/sungbinlee/S.B.Lee-WikiPage/assets/52542229/6c03e4bb-874f-42c5-bdd6-672f19a24e08)
 
-![ezgif-3-ee2a4ae1b7](https://github.com/sungbinlee/S.B.Lee-WikiPage/assets/52542229/d14f188d-14cf-447b-9337-0f99ce0bcf23)
+![ezgif-3-7b6dc2f03c](https://github.com/sungbinlee/S.B.Lee-WikiPage/assets/52542229/8c4d6d4d-94ec-4d80-9990-589da2aef4bf)
