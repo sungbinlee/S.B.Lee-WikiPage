@@ -3,7 +3,7 @@
 이 프로젝트는 코딩허브 강의 관련 정보에 대한 게시판을 구축하는 과제입니다. Python 기반의 Django 프레임워크를 사용하여 구현되었습니다. 해당 과제에서는 게시글 간의 연관성을 분석하고 시각화하는 기능을 중점으로 다룹니다.
 ## 배포 링크 바로가기 https://codinghub.sungbinlee.dev/
 이 프로젝트는 AWS 환경에서 uwsgi와 nginx를 사용하여 배포되었습니다.
-## https://codinghub.sungbinlee.dev/admin
+## 어드민페이지 바로가기 https://codinghub.sungbinlee.dev/admin
 ID: admin 
 PW: qwer1234!!
 ## 데모 
