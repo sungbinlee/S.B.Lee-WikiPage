@@ -1,0 +1,39 @@
+{% extends "board/base.html" %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col" class="col-2">제목</th>
+            <th scope="col">본문</th>
+            <th scope="col">날짜</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if post_list %}
+            {% for post in post_list %}
+                <tr>
+                    <td>{{ post.id }}</td>
+                    <td><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></td>
+                    <td>
+                <span class="d-inline-block text-truncate" style="max-width: 400px;">
+                    {{ post.content }}
+                </span>
+                    </td>
+                    <td>{{ post.created_at }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4" class="text-center">No data available</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    {% if is_paginated %}
+        {% bootstrap_pagination page_obj size="small" justify_content="center" %}
+    {% endif %}
+{% endblock %}
+

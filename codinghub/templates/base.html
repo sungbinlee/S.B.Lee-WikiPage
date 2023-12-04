@@ -1,0 +1,48 @@
+{% load bootstrap5 %}
+<!doctype html>
+<html lang=ko>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[코딩허브] 백엔드 개발자 실무과제 - 이승빈</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% block extra-style %}{% endblock %}
+</head>
+<body>
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <img src="https://ci3.googleusercontent.com/proxy/3NQdlVYPU8Nvhb4pcSMvGcJRbBkLnyyrC06MYmrhKJT_6H6QsmIQxWsRuRDwjuuJ_hqzrjr_JyrAnneO6ZCVTchlpZlH-sFNiJqv=s0-d-e1-ft#https://static.wanted.co.kr/images/wdes/0_5.81988d83.jpg"
+                 class="me-2" width="40" height="32" alt="코딩허브"/>
+            <span class="fs-4">백엔드 개발자 실무 과제</span>
+        </a>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="{% url 'board:post_list' %}" class="nav-link {% if request.path == '/board/' %}active{% endif %}" aria-current="page">게시판</a></li>
+            <li class="nav-item"><a href="{% url 'board:association_map' %}" class="nav-link {% if request.path == '/board/association-map/' %}active{% endif %}">연관 지도</a></li>
+        </ul>
+    </header>
+    {% bootstrap_messages %}
+    {% block content %}{% endblock %}
+</div>
+
+<div class="container">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-md-4 d-flex align-items-center">
+            <span class="mb-3 mb-md-0 text-body-secondary">© Sungbin Lee</span>
+        </div>
+
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3"><a class="text-body-secondary" href="https://github.com/sungbinlee/S.B.Lee-WikiPage"><img
+                    src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" width="32" height="32"
+                    alt="github_img"/></a></li>
+        </ul>
+    </footer>
+</div>
+{% block extra-script %}{% endblock %}
+
+</body>
+</html>
