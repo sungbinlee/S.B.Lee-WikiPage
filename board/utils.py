@@ -3,6 +3,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 from board.models import Post
 import pandas as pd
 import re
+import logging
+
+logging.basicConfig(filename='post_analyzer.log', level=logging.INFO)
 
 
 class PostAnalyzer:
@@ -21,29 +24,40 @@ class PostAnalyzer:
         self.stop_words = file_content.split('\n')
 
     def data_preprocessing(self):
-        pattern = r'(시켰습니다|됩니다|으로써|적이며|라고|으로|합니다|입니다|에서|롭게|하면|하고|하는|적인|시킬|로|할|을|를|은|는|이|가|한|에|과|의|와|들)(?=[^가-힣])'
+        pattern = r'(시켰습니다|줍니다|됩니다|으로써|적이며|라고|으로|합니다|입니다|에서|롭게|하면|하고|하는|니다|적인|시킬|로|할|을|를|은|는|이|가|한|에|과|의|와|들)(?=[^가-힣])'
         self.all_contents["content"] = self.all_contents["content"].apply(lambda x: re.sub(pattern, '', x))
 
     def calculate_tfidf(self):
-        self.tfidf_vectorizer = TfidfVectorizer(stop_words=self.stop_words, max_df=0.6, min_df=2)
-        self.tfidf_matrix = self.tfidf_vectorizer.fit_transform(self.all_contents["content"])
-        self.cosine_similarities = cosine_similarity(self.tfidf_matrix, self.tfidf_matrix)
+        try:
+            self.tfidf_vectorizer = TfidfVectorizer(stop_words=self.stop_words, max_df=0.6, min_df=2)
+            self.tfidf_matrix = self.tfidf_vectorizer.fit_transform(self.all_contents["content"])
+            self.cosine_similarities = cosine_similarity(self.tfidf_matrix, self.tfidf_matrix)
+        except ValueError as e:
+            logger = logging.getLogger(__name__)
+            logger.error(f"ValueError 발생: {e}")
+            logger.info("데이터가 부족하여 처리할 수 없습니다. max_df 값이 min_df보다 더 많은 문서를 필요로 합니다. ")
 
     def create_indices(self):
         self.indices = pd.Series(self.all_contents.index, index=self.all_contents["id"]).drop_duplicates()
 
     def get_related_posts(self, post_id):
-        mapped_post_id = self.indices[post_id]
-        similarity = list(enumerate(self.cosine_similarities[mapped_post_id]))
-        similarity = sorted(similarity, key=lambda x: x[1], reverse=True)
-        related_posts = [
-            {
-                "post": self.indices[self.indices == post[0]].index[0],
-                "similarity": post[1]
-            }
-            for post in similarity if post[1] > 0
-        ]
-        return related_posts[1:]
+        try:
+            mapped_post_id = self.indices[post_id]
+            similarity = list(enumerate(self.cosine_similarities[mapped_post_id]))
+            similarity = sorted(similarity, key=lambda x: x[1], reverse=True)
+            related_posts = [
+                {
+                    "post": self.indices[self.indices == post[0]].index[0],
+                    "similarity": post[1]
+                }
+                for post in similarity if post[1] > 0
+            ]
+            return related_posts[1:]
+        except AttributeError as e:
+            logger = logging.getLogger(__name__)
+            logger.error(f"AttributeError 발생: {e}")
+            logger.info("유사도 데이터가 없습니다. 데이터가 부족하여 처리할 수 없습니다.")
+            return []
 
     def extract_word_associations(self, threshold=0.05):
         associations = []

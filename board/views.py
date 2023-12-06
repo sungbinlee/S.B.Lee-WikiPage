@@ -23,10 +23,6 @@ post_list = PostListview.as_view()
 class PostDetailView(DetailView):
     model = Post
 
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs
-
     def get_context_data(self, **kwargs):
         analyzer = PostAnalyzer()
         context = super().get_context_data(**kwargs)
