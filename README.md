@@ -37,7 +37,7 @@
 - **형태소 분석기 활용**
   - 한국어의 특성에 맞게 형태소 분석기를 사용하여 단어의 의미적 연결성을 더욱 정확히 파악합니다.
 
-- **Word2Vec 및 임베딩 기법 적용**
+- **Word2Vec 등 임베딩 기법 적용**
   - 단어 간의 의미적 유사성을 고려하여 단어를 벡터로 표현하고, 이를 활용하여 보다 정교한 연관성 분석을 시도합니다.
 
 ## 관련 프로젝트
@@ -48,7 +48,7 @@
 
 3. [**헬스케어 앱 리뷰 분석 프로젝트**](https://sungbinlee.github.io/artificial%20intelligence/mobile-app-review-insights-through-lda-topic-modeling/):
    - **목적**: 건강 앱의 사용자 리뷰를 텍스트 마이닝하여 고객 요구사항 파악.
-   - **과정**: Google Play Store에서 리뷰 크롤링, 데이터 전처리, LDA 주제 모델링을 통해 긍정적 및 부정적 리뷰 주제 도출.
+   - **과정**: Google Play Store에서 리뷰 크롤링, 데이터 전처리, LDA 토픽 모델링을 통해 긍정적 및 부정적 리뷰 주제 도출.
 
 4. [**연관규칙을 이용한 데이터 마이닝 프로젝트**](https://sungbinlee.github.io/artificial%20intelligence/association-rule-mining/):
    - **목적**: 데이터 내의 패턴 및 연관성 파악을 통한 인사이트 발굴.
